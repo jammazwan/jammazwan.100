@@ -1,0 +1,339 @@
+from("timer://foo?repeatCount=1")
+
+
+.log("DONE with  ${header.CamelFileName}");
+
+         
+        .process(new Processor() {
+            public void process(Exchange exchange) throws Exception {
+                System.out.println(">>>>>>>>" 
+                        + exchange.getIn().getHeader("CamelFileName"));   
+            }
+        })
+
+                    exchange.getIn().setHeader("CamelFileName", "abnImportant"+(new Date().getTime())+ ".txt");
+
+
+
+
+        from("file://../_xml/?noop=true&fileName=catalog.xml")
+
+
+.to("ftp://192.168.99.100/?username=petec&password=frog");
+
+
+@CsvRecord(separator = ",", crlf = "UNIX", skipFirstLine=true)
+public class Crime implements Serializable{
+    @DataField(pos = 1)
+    private String cdatetime;
+        <dataFormats>
+            <bindy id="bindyDataformat" type="Csv" classType="aaaa.domain.Crime" />
+        </dataFormats>
+from("file://../_csv/?noop=true&fileName=crime_short.csv").unmarshal("bindyDataformat")
+//processor:
+                List<Crime> list = (List<Crime>) exchange.getIn().getBody();
+                for(Crime crime:list){
+                    System.out.println(">>>>>>> " + crime.getAddress());
+                }
+        
+
+.marshal("bindyDataformat") 
+    <camelContext id="aaj" xmlns="http://camel.apache.org/schema/spring">
+        <routeBuilder ref="routes"/>
+        <dataFormats>
+            <bindy id="bindyDataformat" type="Csv" classType="aaj.domain.Stock" />
+        </dataFormats>
+    </camelContext>
+
+
+
+
+
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-client</artifactId>
+            <version>${activemq-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-camel</artifactId>
+            <version>${activemq-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-pool</artifactId>
+            <version>${activemq-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-broker</artifactId>
+            <version>${activemq-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-spring</artifactId>
+            <version>${activemq-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-kahadb-store</artifactId>
+            <version>${activemq-version}</version>
+        </dependency>
+ <import resource="activemq.xml"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:broker="http://activemq.apache.org/schema/core"
+       xsi:schemaLocation="
+         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+         http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
+  <broker:broker useJmx="false" persistent="false" brokerName="localhost">
+    <broker:transportConnectors>
+      <broker:transportConnector name="tcp" uri="tcp://localhost:61616" />
+    </broker:transportConnectors>
+  </broker:broker>
+  <bean id="jms" class="org.apache.activemq.camel.component.ActiveMQComponent">
+    <property name="brokerURL" value="tcp://192.168.99.100:61616" />
+    <!--see http://activemq.apache.org/objectmessage.html-->
+    <property name="trustAllPackages" value="true"/>
+  </bean>
+</beans>
+
+
+
+
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-xstream</artifactId>
+            <version>${camel-version}</version>
+        </dependency>
+    /*
+     * also see AacRoutes.java for working example
+     * This code is derived from
+     https://github.com/apache/camel/blob/master/components/camel-xstream/src/test/java/org/apache/camel/dataformat/xstream/XStreamConfigurationTest.java and I have absolutely no understanding how it works, just got it
+     * working and quit trying to understand it.
+     */
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.converters.Converter;
+import com.thoughtworks.xstream.converters.MarshallingContext;
+import com.thoughtworks.xstream.converters.UnmarshallingContext;
+import com.thoughtworks.xstream.io.HierarchicalStreamReader;
+import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
+import org.apache.camel.model.dataformat.XStreamDataFormat;
+    private static volatile boolean constructorInjected;
+    private static volatile boolean methodInjected;
+    @Override
+    public void configure() throws Exception {
+        XStreamDataFormat xstreamDefinition = new XStreamDataFormat();
+        Map<String, String> aliases = new HashMap<String, String>();
+        aliases.put("catalog", Catalog.class.getName());
+        aliases.put("cd", Cd.class.getName());
+        xstreamDefinition.setAliases(aliases);
+        xstreamDefinition.setPermissions(Catalog.class, Cd.class);
+        List<String> converters = new ArrayList<String>();
+        converters.add(CheckMethodInjection.class.getName());
+        converters.add(CheckConstructorInjection.class.getName());
+        xstreamDefinition.setConverters(converters);
+        Map<String, String[]> implicits = new HashMap<String, String[]>();
+        implicits.put(Catalog.class.getName(), new String[] { "cds" });
+        xstreamDefinition.setImplicitCollections(implicits);
+        from("file://../_xml/?noop=true&fileName=catalog.xml")
+                // .log("Starting to process xml file: ${header.CamelFileName}")
+                .unmarshal(xstreamDefinition)
+        }
+//then
+    public static class CheckConstructorInjection implements Converter {
+        public CheckConstructorInjection(XStream xstream) {
+            if (xstream != null) {
+                constructorInjected = true;
+            } else {
+                throw new RuntimeException("XStream should not be null");
+            }
+        }
+        public void marshal(Object source, HierarchicalStreamWriter writer, MarshallingContext context) {
+        }
+        public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
+            return null;
+        }
+        @SuppressWarnings("rawtypes")
+        public boolean canConvert(Class type) {
+            return false;
+        }
+    }
+    public static class CheckMethodInjection implements Converter {
+        public CheckMethodInjection() {
+
+        }
+        public void setXStream(XStream xstream) {
+            if (xstream != null) {
+                methodInjected = true;
+            } else {
+                throw new RuntimeException("XStream should not be null");
+            }
+        }
+        public void marshal(Object source, HierarchicalStreamWriter writer, MarshallingContext context) {
+        }
+        public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
+            return null;
+        }
+        @SuppressWarnings("rawtypes")
+        public boolean canConvert(Class type) {
+            return false;
+        }
+    }
+
+json variant - install this class in both camel-context and as a file    
+<bean id="noRootJsonXstreamDriver" class="abo.NoRootJsonXstreamDriver"/>
+package abo;
+import java.io.Writer;
+import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
+import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
+import com.thoughtworks.xstream.io.json.JsonWriter;
+public class NoRootJsonXstreamDriver extends JsonHierarchicalStreamDriver {
+    @Override
+    public HierarchicalStreamWriter createWriter(Writer writer) {
+        return new JsonWriter(writer, JsonWriter.DROP_ROOT_MODE);
+    }
+}
+
+
+
+.to("jpa:aal.domain.Cd");
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jpa</artifactId>
+            <version>${camel-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.openjpa</groupId>
+            <artifactId>openjpa-persistence-jdbc</artifactId>
+            <version>2.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.9</version>
+        </dependency>
+<!--persistence.xml in META-INF-->
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0">
+  <persistence-unit name="camel" transaction-type="RESOURCE_LOCAL">
+    <class>myorg.PurchaseOrder</class>
+    <class>myorg.Ledger</class>
+    <class>myorg.ProductionRun</class>
+    <properties>
+      <property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver" />
+      <property name="openjpa.ConnectionURL" value="jdbc:mysql://192.168.99.100:3306/squid" />
+      <property name="openjpa.ConnectionUserName" value="root" />
+      <property name="openjpa.ConnectionPassword" value="my-secret-pw" />
+      <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema" />
+    </properties>
+  </persistence-unit>
+</persistence>
+<import resource="classpath:META-INF/spring/jpa-camel-context.xml" />
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    <bean id="jpa" class="org.apache.camel.component.jpa.JpaComponent">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+    <bean id="entityManagerFactory"
+        class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="camel" />
+        <property name="jpaVendorAdapter" ref="jpaAdapter" />
+    </bean>
+    <bean id="jpaAdapter" class="org.springframework.orm.jpa.vendor.OpenJpaVendorAdapter">
+        <property name="databasePlatform" value="org.apache.openjpa.jdbc.sql.MySQLDictionary" />
+        <property name="database" value="MYSQL" />
+    </bean>
+    <bean id="transactionTemplate"
+        class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager">
+            <bean class="org.springframework.orm.jpa.JpaTransactionManager">
+                <property name="entityManagerFactory" ref="entityManagerFactory" />
+            </bean>
+        </property>
+    </bean>
+</beans>
+//had to remove serializeable to not kick off xstream, also implements Serializable
+//import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+@Entity
+public class ProductionRun {
+    private static final long serialVersionUID = 414632787969243627L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    long id;
+
+
+
+                .process(new Processor() {
+                    public void process(Exchange exchange) throws Exception {
+                        String recipients = "jms:accounting";
+                        String customer = exchange.getIn().getHeader("customer", String.class);
+                        if (customer.equals("honda")) {
+                            recipients += ",jms:production";
+                        }
+                        exchange.getIn().setHeader("recipients", recipients);
+                    }
+                })
+                .recipientList(header("recipients"));
+
+
+
+.bean("acyRoutingBean").log("DONE");
+from("jms:notmuchhere").log("NOT MUCH THERE");
+    <bean id="acyRoutingBean" class="acy.AcyRoutingBean" />
+public class AcyRoutingBean {
+    @RoutingSlip
+    public String slip() {
+        String answer = "jms:notmuchhere";
+        return answer;
+    }
+}
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-codegen-plugin</artifactId>
+        <version>${cxf-version}</version>
+        <executions>
+          <execution>
+            <id>generate-sources</id>
+            <phase>generate-sources</phase>
+            <configuration>
+              <sourceRoot>${basedir}/target/generated/src/main/java</sourceRoot>
+              <wsdlOptions>
+                <wsdlOption>
+                  <wsdl>${basedir}/src/main/resources/wsdl/order.wsdl</wsdl>
+                  <extraargs>
+                    <extraarg>-impl</extraarg>
+                  </extraargs>
+                </wsdlOption>
+              </wsdlOptions>
+            </configuration>
+            <goals>
+              <goal>wsdl2java</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+mvn clean generate-sources
+mv target/generated/src/main/java/ src/main
+
+MockEndpoint result = getMockEndpoint("mock:result");
+result.expectedMessageCount(1);;
+result.assertIsSatisfied();
+
+
+
