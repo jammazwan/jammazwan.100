@@ -1,3 +1,9 @@
+"Jammazwan" [is Hindi](href="https://books.google.com/books?id=_kWROaer5UsC&amp;pg=PA1138&amp;lpg=PA1138&amp;dq=jammazwan+camel+keeper+hindi&amp;source=bl&amp;ots=7FaF5BXK_F&amp;sig=Cg-U5ORP3dHrFycaCFvo34GdpZ0&amp;hl=en&amp;sa=X&amp;ved=0ahUKEwj8v4OV3YbNAhVjpIMKHSYUB_oQ6AEIHDAA#v=onepage&amp;q=jammazwan%20camel%20keeper%20hindi&amp;f=false) for "camel keeper".
+
+|a Jammazwan|Another Camel Keeper|
+| --- | --- |
+|<img class="style-svg" src="https://betterologist.net/wp-content/uploads/2016/05/pete-300x297.jpg" alt="pete" width="116" height="115" />|<img class="style-svg" src="https://betterologist.net/wp-content/uploads/2016/05/jammazwanPhotoSmall.png" alt="jammazwanPhotoSmall" width="200" height="116" />|
+
 # jammazwan.100
 
 This README and a separately downloadable tar, below, are about all that this project consists of. 
@@ -6,7 +12,7 @@ You may want to read these minimal instructions very carefully before doing anyt
 
 ### What jammazwan.100 is/does:
 
-Jammazwan 100 gives you 100 starter projects in single workspace, with a set of README instructions on how to complete these projects.
+Jammazwan 100 gives you 100 starter projects in single workspace, with a set of [README Instructions](https://github.com/jammazwan/jammazwan.100/blob/master/jammazwanBatch100.txt) on how to complete these projects. Check out [the instructions themselves](https://github.com/jammazwan/jammazwan.100/blob/master/jammazwanBatch100.txt) if this isn't yet making sense to you.
 
 It will put you through maybe not 100, (there are a few dupes, as it is randomly generated) but almost 100 unique variations of Camel integration projects. From JPA to CSX to JMS to .... different combinations of each.
 
@@ -37,7 +43,7 @@ Use at your own risk, no instructions included. You're supposed to be figuring a
 
 ### Project README or all 100?
 
-Each project has it's own README, which advises you on how to complete that project. But after I did a few, I found it easier to keep the batch100 README open in my text editor and complete everything from there.
+Each project has it's own README, which advises you on how to complete that project. But after I did a few, I found it easier to keep the [batch100 README](https://github.com/jammazwan/jammazwan.100/blob/master/jammazwanBatch100.txt) open in my text editor and complete everything from there.
 
 ### Solved:
 
@@ -51,4 +57,7 @@ Oh, but that's not what you wanted to know. They were all generated using [jamma
 
 And yes, it's all written in Camel, or camel-velocity, to be specific
 
+### Why the aaa aab aac project prefixes? 
+
+This is a hack to keep the randomly ordered projects randomly ordered. Else they would self-order by name, which hints loosely at their contents.
 
